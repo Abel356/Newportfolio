@@ -16,10 +16,10 @@ export const HERO_PHRASES = ["in production.", "past the demo.", "on real cloud.
 
 // `shape` sets the desktop crop, `focus` which part of the photo stays in view.
 export const HERO_PHOTOS = [
-  { id: "aws-summit", src: "/media/abel-aws-summit.jpg", alt: "Abel at AWS Summit", shape: "lg:aspect-[4/5]", focus: "object-top" },
-  { id: "suit", src: "/media/abel-suit.jpg", alt: "Abel in a suit and red tie", shape: "lg:aspect-[5/4]", focus: "object-center" },
-  { id: "hack-the-6ix", src: "/media/abel-hack-the-6ix.jpg", alt: "Abel with teammates at Hack the 6ix", shape: "lg:aspect-[5/4]", focus: "object-center" },
-  { id: "garden", src: "/media/abel-garden.jpg", alt: "Abel in front of a flower garden", shape: "lg:aspect-[4/5]", focus: "object-[50%_40%]" },
+  { id: "aws-summit", src: "/media/abel-aws-summit.jpg", alt: "Abel at AWS Summit", caption: "AWS Summit", shape: "lg:aspect-[4/5]", focus: "object-top" },
+  { id: "suit", src: "/media/abel-suit.jpg", alt: "Abel in a suit and red tie", caption: "Vosyn AI (Internship)", shape: "lg:aspect-[5/4]", focus: "object-center" },
+  { id: "hack-the-6ix", src: "/media/abel-hack-the-6ix.jpg", alt: "Abel with teammates at Hack the 6ix", caption: "Hack the 6ix", shape: "lg:aspect-[5/4]", focus: "object-center" },
+  { id: "garden", src: "/media/abel-garden.jpg", alt: "Abel in front of a flower garden in Niagara", caption: "Niagara", shape: "lg:aspect-[4/5]", focus: "object-[50%_40%]" },
 ];
 
 export const EXPERIENCE = [
@@ -79,6 +79,7 @@ export const PROJECTS = [
     stack: "FastAPI · React · TypeScript · Cohere · PostgreSQL · pgvector · Docker",
     repo: "https://github.com/Abel356/Bastion",
     demo: "",
+    visual: "bastion-run",
   },
   {
     name: "Precogni",
@@ -88,6 +89,8 @@ export const PROJECTS = [
     stack: "Python · Gemini API · OpenCV · Whisper",
     repo: "https://github.com/Abel356/HackThe6ix",
     demo: "",
+    visual: "precogni-cam",
+    image: "/media/precogni.jpg",
   },
   {
     name: "SaveBetter",
@@ -97,8 +100,23 @@ export const PROJECTS = [
     stack: "Next.js · TypeScript · GPT-4",
     repo: "https://github.com/Abel356/SaveBetter_KiroHackathon",
     demo: "https://save-better-kiro-hackathon-6njl.vercel.app/",
+    visual: "screenshot",
+    image: "/media/savebetter.jpg",
   },
 ];
+
+// Mirrors Bastion's demo walkthrough (docs/PRD.md) and tool names (app/governance/tools.py).
+export const BASTION_RUN = {
+  persona: "Maya Chen · Engineering",
+  events: [
+    { label: "search_documents", status: "Allowed", tone: "ok" },
+    { label: "finance chunks", status: "Excluded", tone: "warn" },
+    { label: "injected passage", status: "Quarantined", tone: "warn" },
+    { label: "propose_email", status: "Blocked", tone: "stop" },
+  ],
+};
+
+export const PRECOGNI_SIGNALS = ["eye closure", "yawning", "head tilt"];
 
 export const TRIAGE_ROWS = [
   { label: "Swap · block 1", status: "Reconciled", color: "#b9d08a" },
@@ -128,6 +146,12 @@ export const HACKATHONS = [
 export const NOTES = [
   {
     id: "the-hard-part",
+    meme: {
+      src: "/media/math-meme.jpg",
+      alt: "A student proudly holding a puzzle piece while a giant monster made of math looms behind",
+      top: "Me, picking computer science because I like puzzles",
+      bottom: "Math, in every form",
+    },
     title: "Turns out the “hard” part was the interesting part.",
     lead: [
       "Growing up, I had no idea what I wanted to be. What I did know: I loved puzzles. Hand me something tangled and I couldn't leave it alone until it made sense. So computer science seemed obvious. It wasn't. It felt hard, and it came with my nemesis: math, in every form. We did not get along. (We're on better terms now. A cold war, mostly.)",

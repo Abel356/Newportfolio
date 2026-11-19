@@ -2,6 +2,7 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { PROJECTS, TRIAGE_ROWS } from "@/data/content";
 import { Reveal } from "./Reveal";
 import { HoverClip } from "./HoverClip";
+import { ProjectVisual } from "./ProjectVisual";
 
 const slug = (name) => name.toLowerCase();
 
@@ -119,8 +120,14 @@ export const Projects = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {rest.map((p, i) => (
               <Reveal key={p.name} delay={i * 0.08} className="h-full">
-                <article className={`${CARD} h-full p-7`} data-testid={`project-card-${slug(p.name)}`}>
-                  <ProjectBody project={p} />
+                <article
+                  className={`${CARD} group flex h-full flex-col p-5`}
+                  data-testid={`project-card-${slug(p.name)}`}
+                >
+                  <ProjectVisual project={p} />
+                  <div className="flex-1 px-2 pb-2">
+                    <ProjectBody project={p} />
+                  </div>
                 </article>
               </Reveal>
             ))}

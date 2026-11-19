@@ -44,8 +44,13 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - Hero: four user photos (public/media/abel-*.jpg, HERO_PHOTOS in content.js) in a staggered two-column stack beside the headline (PhotoStack.jsx); warm sand frame that turns terracotta and image zooms on hover. One row of four on mobile.
 - Triage clip: now full width of the Triage card, zoomed (scale 1.16) so the purple recording border is cropped out, warm frame.
 
+## Implemented (2026-11-19, revision 5)
+- Hero photo captions on hover: AWS Summit, Vosyn AI (Internship), Hack the 6ix, Niagara.
+- Project visuals (ProjectVisual.jsx): Bastion = coded run-timeline panel based on the repo (AI image garbled UI text, discarded); Precogni = AI-generated driver-camera image with signal labels; SaveBetter = real screenshot of the live demo.
+- Notes: AI-drawn math-monster meme beside Note 01 with HTML captions (meme field in NOTES).
+
 ## Backlog / Next
-- P1: Screenshots/clips for Bastion, Precogni, SaveBetter when the user provides them
+- P1: Replace Bastion/Precogni visuals with real captures when available
 - P1: Resume PDF download button
 - P2: Light SEO (sitemap, JSON-LD Person schema), OG image
 - P2: More notes (append to NOTES in content.js)
