@@ -72,45 +72,11 @@ body {
 /* ---- Blinking caret ---- */
 .caret {
     display: inline-block;
-    width: 0.6ch;
     animation: blink 1.1s steps(2) infinite;
 }
 @keyframes blink {
     50% {
         opacity: 0;
-    }
-}
-
-/* ---- Marquee ---- */
-.mq-track {
-    display: flex;
-    width: max-content;
-    animation: mq 42s linear infinite;
-}
-@keyframes mq {
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-/* ---- Floating 3D panel ---- */
-.panel-wrap {
-    perspective: 1400px;
-}
-.panel-3d {
-    transform: rotateY(-8deg) rotateX(4deg);
-    animation: panelIn 1.2s cubic-bezier(0.2, 0.7, 0, 1) both,
-        panelFloat 16s ease-in-out 1.2s infinite alternate;
-}
-@keyframes panelIn {
-    from {
-        opacity: 0;
-        transform: rotateY(-20deg) rotateX(8deg) scale(1.08);
-    }
-}
-@keyframes panelFloat {
-    to {
-        transform: rotateY(-3deg) rotateX(2deg) translateY(-10px);
     }
 }
 
@@ -132,8 +98,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *,
-    .panel-3d {
+    * {
         animation: none !important;
     }
     html {

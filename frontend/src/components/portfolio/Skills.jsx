@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal";
 
 // dir2's terminal — `cat skills.yml` on a dark earthy window with curved edges + caret.
 export const Skills = () => (
-  <section id="skills" className="bg-[#efe7da] text-[#2b2119] py-24 md:py-36">
+  <section id="skills" className="bg-[#efe7da] text-[#2b2119] py-24 md:py-32">
     <div className="max-w-7xl mx-auto px-6">
       <Reveal>
         <p className="lab text-[#a8471f]">Toolkit</p>
@@ -36,7 +36,7 @@ export const Skills = () => (
               </p>
             ))}
             <p className="mt-3 text-[#8f9a6a]">
-              $ <span className="caret">▍</span>
+              $ <span className="caret w-[0.6ch]">▍</span>
             </p>
           </div>
         </div>

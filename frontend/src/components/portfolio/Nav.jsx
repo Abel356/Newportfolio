@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { PROFILE } from "@/data/content";
 
 const LINKS = [
+  { href: "#notes", label: "Notes" },
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
-  { href: "#hackathons", label: "Hackathons" },
   { href: "#skills", label: "Skills" },
 ];
 
@@ -56,7 +56,7 @@ export const Nav = () => {
           target="_blank"
           rel="noopener noreferrer"
           data-testid="nav-book-call"
-          className="rounded-full bg-[#a8471f] text-[#fbf6ee] px-5 py-2 text-sm transition-transform hover:scale-105"
+          className="rounded-full bg-[#a8471f] text-[#efe7da] px-5 py-2 text-sm transition-transform hover:scale-105"
         >
           Book a call
         </a>

@@ -34,7 +34,10 @@ export const Typewriter = ({ phrases, className = "", typing = 55, pause = 1800 
   return (
     <span className={className} data-testid="hero-typewriter">
       {text}
-      <span className="caret text-[#a8471f]">▍</span>
+      <span
+        aria-hidden="true"
+        className="caret ml-[0.08em] inline-block h-[0.78em] w-[0.05em] min-w-[2px] bg-current align-baseline"
+      />
     </span>
   );
 };

@@ -3,10 +3,10 @@ import { Reveal } from "./Reveal";
 
 // dir1's "Where I've shipped" — tabular dates left, detail right, hairline dividers.
 export const Experience = () => (
-  <section id="experience" className="bg-[#e3d6c3] text-[#2b2119] py-24 md:py-36">
+  <section id="experience" className="bg-[#e3d6c3] text-[#2b2119] py-24 md:py-32">
     <div className="max-w-7xl mx-auto px-6">
       <Reveal>
-        <p className="lab text-[#8a3a18]">Experience</p>
+        <p className="lab text-[#a8471f]">Experience</p>
         <h2
           className="font-dsp mt-4"
           style={{ fontSize: "clamp(36px,5vw,80px)", lineHeight: 1, letterSpacing: "-.02em" }}

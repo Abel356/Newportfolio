@@ -27,8 +27,17 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - About (3/9), Experience timeline, Projects (4 cards), Metrics band, Hackathons (3/9), Skills terminal, Education/Certs, Leadership, Interests (mountain image), Contact (Calendly CTA + email/LinkedIn/GitHub), Footer
 - Responsive 1920/768/390; all CTAs point to Calendly
 
+## Implemented (2026-11-19, revision 2 — user feedback)
+- Hero: canvas moving-dot field (DotField.jsx) + typed rotating endings after "AI agents that run" (HERO_PHRASES). Triage panel removed from hero.
+- Notes section (Notes.jsx, NOTES in content.js): user's own essay, verbatim, with "Keep reading" expand. Replaces the old About block.
+- Projects: Triage featured card now holds the triage run-report panel; repo/demo buttons render only when `repo`/`demo` is set in content.js. Linked: Triage (repo + live demo), Bastion (repo), Precogni (repo = HackThe6ix fork, named ALEx! in its README). SaveBetter has no links.
+- Hackathons: 3/9 graphics and marquee removed; compact "Hackathons attended" chip row with the user's list (Hack the Valley listed twice by user -> shown as x2).
+- On the record: resume tagline removed; numbers count up on scroll (CountUp.jsx).
+- Palette tightened to ground #efe7da / muted #e3d6c3 / ink #2b2119 / accent #a8471f (+ #e2a07a accent on dark, terminal green only inside terminals). Skills terminal untouched.
+- Verified with screenshots + link assertions at 1920 and 390 (testing agent not used).
+
 ## Backlog / Next
-- P1: Project detail pages / live demo links & GitHub repo links per project
+- P1: Demo/repo links for SaveBetter once available
 - P1: Resume PDF download button
 - P2: Light SEO (sitemap, JSON-LD Person schema), OG image
-- P2: Blog / writing section for personal brand
+- P2: More notes (append to NOTES in content.js)
