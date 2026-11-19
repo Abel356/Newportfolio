@@ -20,7 +20,7 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 
 ## Architecture
 - Frontend: React (CRA), framer-motion, Tailwind. Single page (Portfolio.jsx) + section components in src/components/portfolio/. Content in src/data/content.js.
-- Backend: FastAPI template unchanged (static content site, no DB usage needed). No integrations (Calendly is external link).
+- Backend: FastAPI + MongoDB, used only for the contact form (backend/contact.py). Integrations: Emergent managed email; Calendly is an external link.
 
 ## Implemented (2026-11-19)
 - Fixed nav, hero (typewriter CLI + 3D floating Triage panel), hackathon marquee
@@ -48,6 +48,12 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - Hero photo captions on hover: AWS Summit, Vosyn AI (Internship), Hack the 6ix, Niagara.
 - Project visuals (ProjectVisual.jsx): Bastion = coded run-timeline panel based on the repo (AI image garbled UI text, discarded); Precogni = AI-generated driver-camera image with signal labels; SaveBetter = real screenshot of the live demo.
 - Notes: AI-drawn math-monster meme beside Note 01 with HTML captions (meme field in NOTES).
+
+## Implemented (2026-11-19, revision 6)
+- Hero photo lightbox (shadcn Dialog in PhotoStack.jsx): click opens photo large with caption.
+- Get in touch block inside Contact: ContactForm.jsx -> POST /api/contact (backend/contact.py). Stores in `contact_messages`, emails OWNER_EMAIL via Emergent managed email (fixed subject + escaped server template, honeypot, 3/hour per IP and 40/day limits). Env: EMERGENT_EMAIL_KEY, EMAIL_FROM_NAME, OWNER_EMAIL.
+- Notes: meme captions removed; six AI-drawn math-monster pictures (3 "enemy" left, 3 matching "friend" right; `memes.before/after` in NOTES).
+- Tested: curl (validation 422, honeypot, real send 200), UI form with mocked response, lightbox open/close, 1920 + 390 screenshots. Testing agent not used.
 
 ## Backlog / Next
 - P1: Replace Bastion/Precogni visuals with real captures when available

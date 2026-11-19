@@ -146,11 +146,18 @@ export const HACKATHONS = [
 export const NOTES = [
   {
     id: "the-hard-part",
-    meme: {
-      src: "/media/math-meme.jpg",
-      alt: "A student proudly holding a puzzle piece while a giant monster made of math looms behind",
-      top: "Me, picking computer science because I like puzzles",
-      bottom: "Math, in every form",
+    // Picture story told in pairs: each `before` scene has its matching `after` scene.
+    memes: {
+      before: [
+        { src: "/media/monster-enemy-puzzle.jpg", alt: "A student proudly holds a puzzle piece while a grumpy math monster looms behind" },
+        { src: "/media/monster-enemy-test.jpg", alt: "The student sweats over a test while the math monster glares down" },
+        { src: "/media/monster-enemy-code.jpg", alt: "The student struggles with code while the math monster tangles the laptop cable" },
+      ],
+      after: [
+        { src: "/media/monster-friend-puzzle.jpg", alt: "The math monster, now a friend, hands the student the last puzzle piece" },
+        { src: "/media/monster-friend-test.jpg", alt: "The student writes a test with confidence while the math monster cheers" },
+        { src: "/media/monster-friend-code.jpg", alt: "The student codes happily while the math monster brings coffee and points at the screen" },
+      ],
     },
     title: "Turns out the “hard” part was the interesting part.",
     lead: [

@@ -1,6 +1,7 @@
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
 import { Notes } from "@/components/portfolio/Notes";
+import { ContactForm } from "@/components/portfolio/ContactForm";
 import { CountUp } from "@/components/portfolio/CountUp";
 import { Experience } from "@/components/portfolio/Experience";
 import { Projects } from "@/components/portfolio/Projects";
@@ -230,6 +231,34 @@ const Contact = () => (
             </a>
           </div>
         </div>
+      </Reveal>
+    </div>
+    <div
+      id="get-in-touch"
+      className="relative z-10 max-w-7xl mx-auto px-6 mt-20 md:mt-28 pt-16 md:pt-20 border-t border-[#efe7da]/15 grid lg:grid-cols-12 gap-12"
+    >
+      <Reveal className="lg:col-span-5 min-w-0">
+        <p className="lab text-[#e2a07a]">Get in touch</p>
+        <h2
+          className="font-dsp mt-4 bal"
+          style={{ fontSize: "clamp(36px,5vw,72px)", lineHeight: 1, letterSpacing: "-.02em" }}
+        >
+          Or send me a message.
+        </h2>
+        <p className="mt-6 max-w-[42ch] text-lg leading-[1.6] text-[#d9c7ad]">
+          Have a question or want to work together? I'd love to hear from you.
+        </p>
+        <p className="mt-8 text-sm text-[#d9c7ad]">Or reach out directly:</p>
+        <a
+          href={`mailto:${PROFILE.email}`}
+          data-testid="get-in-touch-email"
+          className="font-dsp mt-2 inline-block break-all text-2xl md:text-3xl underline decoration-[#e2a07a] underline-offset-8 transition-colors hover:text-[#e2a07a]"
+        >
+          {PROFILE.email}
+        </a>
+      </Reveal>
+      <Reveal delay={0.1} className="lg:col-span-7">
+        <ContactForm />
       </Reveal>
     </div>
   </section>

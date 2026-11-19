@@ -7,36 +7,38 @@ const Para = ({ children }) => (
   <p className="mt-5 text-lg leading-[1.75] text-[#4a3a2d]">{children}</p>
 );
 
-const Meme = ({ meme, id }) => (
-  <figure
-    className="group mt-6 max-w-[320px] overflow-hidden rounded-[20px] border-[5px] border-[#e3d6c3] bg-[#e3d6c3] transition-[border-color] duration-500 hover:border-[#a8471f]"
-    data-testid={`note-${id}-meme`}
-  >
-    <p className="px-3 pb-3 pt-2 text-sm font-semibold leading-snug">{meme.top}</p>
-    <div className="overflow-hidden rounded-[12px]">
-      <img
-        src={meme.src}
-        alt={meme.alt}
-        loading="lazy"
-        className="w-full transition-transform duration-700 ease-out group-hover:scale-110"
-      />
-    </div>
-    <figcaption className="px-3 pb-2 pt-3 text-sm italic text-[#4a3a2d]">{meme.bottom}</figcaption>
-  </figure>
+const MemeColumn = ({ memes, testId, className = "" }) => (
+  <div className={`grid grid-cols-3 gap-3 md:grid-cols-1 md:gap-4 ${className}`} data-testid={testId}>
+    {memes.map((m) => (
+      <figure
+        key={m.src}
+        className="group overflow-hidden rounded-[18px] border-[5px] border-[#e3d6c3] bg-[#e3d6c3] transition-[border-color] duration-500 hover:border-[#a8471f]"
+      >
+        <div className="overflow-hidden rounded-[12px]">
+          <img
+            src={m.src}
+            alt={m.alt}
+            loading="lazy"
+            className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+        </div>
+      </figure>
+    ))}
+  </div>
 );
 
 const Note = ({ note, index }) => {
   const [open, setOpen] = useState(false);
   return (
     <article
-      className="grid md:grid-cols-12 gap-6 md:gap-12 py-12 border-t border-[#2b2119]/20"
+      className="grid md:grid-cols-12 gap-8 md:gap-10 py-12 border-t border-[#2b2119]/20"
       data-testid={`note-${note.id}`}
     >
       <div className="md:col-span-3">
         <p className="lab tab text-[#6b5848] pt-2">Note {String(index + 1).padStart(2, "0")}</p>
-        {note.meme && <Meme meme={note.meme} id={note.id} />}
+        <MemeColumn memes={note.memes.before} testId={`note-${note.id}-memes-before`} className="mt-6" />
       </div>
-      <div className="md:col-span-9 max-w-[62ch] min-w-0">
+      <div className="md:col-span-6 min-w-0">
         <h3 className="font-dsp text-3xl md:text-4xl leading-[1.1] bal">{note.title}</h3>
         {note.lead.map((p) => (
           <Para key={p}>{p}</Para>
@@ -68,6 +70,11 @@ const Note = ({ note, index }) => {
           {open ? "Show less" : "Keep reading"}
         </button>
       </div>
+      <MemeColumn
+        memes={note.memes.after}
+        testId={`note-${note.id}-memes-after`}
+        className="md:col-span-3 md:mt-[46px] content-start"
+      />
     </article>
   );
 };

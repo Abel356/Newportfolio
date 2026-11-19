@@ -17,6 +17,8 @@ from datetime import datetime, timezone
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
+from contact import build_router as build_contact_router  # noqa: E402  (needs .env loaded first)
+
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
@@ -27,6 +29,11 @@ INDEXES: dict[str, list[IndexModel]] = {
     "status_checks": [
         IndexModel([("id", ASCENDING)], name="id", unique=True),
         IndexModel([("timestamp", DESCENDING)], name="timestamp_desc"),
+    ],
+    "contact_messages": [
+        IndexModel([("id", ASCENDING)], name="id", unique=True),
+        IndexModel([("ip", ASCENDING), ("created_at", DESCENDING)], name="ip_created_at"),
+        IndexModel([("created_at", DESCENDING)], name="created_at_desc"),
     ],
 }
 
@@ -87,6 +94,7 @@ async def get_status_checks(limit: int = Query(20, ge=1, le=100)):
     return status_checks
 
 # Include the router in the main app
+api_router.include_router(build_contact_router(db))
 app.include_router(api_router)
 
 app.add_middleware(
