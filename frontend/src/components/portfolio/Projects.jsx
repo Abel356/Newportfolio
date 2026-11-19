@@ -1,6 +1,7 @@
 import { ArrowUpRight, Github } from "lucide-react";
 import { PROJECTS, TRIAGE_ROWS } from "@/data/content";
 import { Reveal } from "./Reveal";
+import { HoverClip } from "./HoverClip";
 
 const slug = (name) => name.toLowerCase();
 
@@ -40,7 +41,7 @@ const ProjectBody = ({ project, big }) => (
     <h3 className={`font-dsp mt-3 ${big ? "text-4xl md:text-5xl" : "text-3xl"}`}>{project.name}</h3>
     <p className="mt-4 max-w-[52ch] leading-[1.6] text-[#4a3a2d]">{project.detail}</p>
     <p className="mt-5 font-mono text-xs leading-[1.7] text-[#6b5848]">{project.stack}</p>
-    <div className="mt-auto">
+    <div className={big ? "" : "mt-auto"}>
       <ProjectLinks project={project} />
     </div>
   </div>
@@ -100,11 +101,19 @@ export const Projects = () => {
         <div className="mt-12 space-y-6" data-testid="projects-grid">
           <Reveal>
             <article
-              className={`${CARD} grid lg:grid-cols-2 gap-8 lg:gap-12 p-7 md:p-10 items-center`}
+              className={`${CARD} grid lg:grid-cols-2 gap-8 lg:gap-12 p-7 md:p-10 items-start`}
               data-testid={`project-card-${slug(featured.name)}`}
             >
               <ProjectBody project={featured} big />
-              <TriagePanel />
+              <div className="space-y-6 min-w-0">
+                <TriagePanel />
+                <HoverClip
+                  src={featured.clip}
+                  poster={featured.poster}
+                  label={`Play the ${featured.name} demo clip`}
+                  testId={`project-${slug(featured.name)}-clip`}
+                />
+              </div>
             </article>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-6">

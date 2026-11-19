@@ -36,8 +36,12 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - Palette tightened to ground #efe7da / muted #e3d6c3 / ink #2b2119 / accent #a8471f (+ #e2a07a accent on dark, terminal green only inside terminals). Skills terminal untouched.
 - Verified with screenshots + link assertions at 1920 and 390 (testing agent not used).
 
+## Implemented (2026-11-19, revision 3)
+- Triage card: real demo clip from the user's repo (public/media/triage-demo.mp4 + poster) via HoverClip.jsx — plays muted on hover/tap, kept alongside the run-report panel.
+- SaveBetter: repo + live demo links added. Bastion, Precogni, SaveBetter remain text-only (no visuals supplied yet).
+
 ## Backlog / Next
-- P1: Demo/repo links for SaveBetter once available
+- P1: Screenshots/clips for Bastion, Precogni, SaveBetter when the user provides them
 - P1: Resume PDF download button
 - P2: Light SEO (sitemap, JSON-LD Person schema), OG image
 - P2: More notes (append to NOTES in content.js)

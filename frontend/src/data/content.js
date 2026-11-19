@@ -60,6 +60,8 @@ export const PROJECTS = [
     stack: "OpenClaw · Telegram · GOAT Network · ERC-8004 · x402",
     repo: "https://github.com/Abel356/Triage-Openclaw-Internship",
     demo: "https://triage-amber-iota.vercel.app",
+    clip: "/media/triage-demo.mp4",
+    poster: "/media/triage-demo-poster.jpg",
   },
   {
     name: "Bastion",
@@ -85,8 +87,8 @@ export const PROJECTS = [
     detail:
       "Adaptive savings engine with GPT-4 behavioral analysis, delivering personalized recommendations on live data from 6+ Canadian banks.",
     stack: "Next.js · TypeScript · GPT-4",
-    repo: "",
-    demo: "",
+    repo: "https://github.com/Abel356/SaveBetter_KiroHackathon",
+    demo: "https://save-better-kiro-hackathon-6njl.vercel.app/",
   },
 ];
 
