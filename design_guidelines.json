@@ -1,0 +1,112 @@
+{
+  "typography": {
+    "heading": "Playfair Display",
+    "body": "Manrope",
+    "mono": "JetBrains Mono"
+  },
+  "colors": {
+    "background": "#efe7da",
+    "background_secondary": "#e3d6c3",
+    "foreground": "#2b2119",
+    "foreground_muted": "#6b5848",
+    "accent_primary": "#a8471f",
+    "accent_terminal": "#8f9a6a"
+  },
+  "visual_enhancers": {
+    "radii": "Use rounded-[24px] to rounded-[32px] for major cards/containers and rounded-full for buttons.",
+    "motion": "Hero left-side animation: Smooth dynamic writing/typewriter effect for the main headline. Tabular reveals on list items. Terminal sections should have a blinking cursor.",
+    "surfaces": "Earthy, flat minimalist surfaces (no glassmorphism). Solid bg colors with subtle border-b or border-t dividers."
+  },
+  "components": [
+    "Hero: Split layout with staggered dynamic typewriter text on the left, and a curved-edge abstract panel on the right.",
+    "Experience ('Where I've Shipped'): Ordered list style from dir1, with tabular dates on left (md:col-span-3) and details on right (md:col-span-9), separated by border-t and border-b.",
+    "Skills: Terminal/Code-styled section from dir2. Use JetBrains Mono font, 'cat skills.yml' style prompt, earthy green syntax text on dark terminal background, but apply curved edges (rounded-[24px]) to the terminal window.",
+    "Projects: Curved edge cards. Use minimal earthy texture as background.",
+    "Hackathons: Big metric display (3/9) + simple list.",
+    "Education & Certs: 2-column list, earthy background.",
+    "Leadership & Interests: Stat-heavy metric blocks + simple text.",
+    "Contact: Final CTA to Calendly."
+  ],
+  "layouts": {
+    "hero": "grid-cols-1 md:grid-cols-12, left col-span-7, right col-span-5",
+    "experience": "grid-cols-1 md:grid-cols-12, date col-span-3, content col-span-9",
+    "projects": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6",
+    "skills_terminal": "Single col, code block representation"
+  },
+  "accessibility": {
+    "contrast": "Ensure text-[#2b2119] against bg-[#efe7da] exceeds 4.5:1. Terminal section must use accessible green (#8f9a6a) on dark background.",
+    "motion": "Respect prefers-reduced-motion for typewriter and floating animations."
+  },
+  "build_manifest": {
+    "direction": {
+      "path": "Hybrid of dir1, dir2, dir3",
+      "app_type": "portfolio",
+      "ambition": "A3 EXPRESSIVE",
+      "mode": "light",
+      "rail": "book a call",
+      "spine": "Hero, Experience, Projects, Hackathons, Skills, Education, Leadership, Interests, Contact",
+      "name": "Abel Sabu Hybrid Portfolio",
+      "tone": "earthy minimilastic aesthetic tones",
+      "axes": "creative, animated, organic, technical"
+    },
+    "tone_tokens": {
+      "font_heading": "Playfair Display",
+      "font_body": "Manrope",
+      "font_mono": "JetBrains Mono",
+      "color_ground": "#efe7da",
+      "color_ground_muted": "#e3d6c3",
+      "color_ink": "#2b2119",
+      "color_ink_muted": "#6b5848",
+      "color_accent": "#a8471f",
+      "color_accent_terminal": "#8f9a6a",
+      "radius_base": "24px",
+      "radius_full": "9999px",
+      "spacing_step": "Generous spacing (py-24 to py-36 for sections)"
+    },
+    "conversion_wiring": {
+      "action": "call",
+      "position": "Hero CTA and Contact CTA",
+      "url": "https://calendly.com/sabuabel2003/30min",
+      "email": "sabuabel2003@gmail.com",
+      "github": "https://github.com/Abel356",
+      "linkedin": "https://www.linkedin.com/in/abel-sabu-30651121a/"
+    },
+    "content_slots": [
+      {"slot": "name", "text": "Abel Sabu", "source": "brief"},
+      {"slot": "location", "text": "Toronto, ON", "source": "brief"},
+      {"slot": "differentiator", "text": "I build AI agents that actually run in production", "source": "brief"},
+      {"slot": "exp-vosyn", "text": "Eliminated 6 hrs/week of manual ops with Python automation; cut cloud spend 18% and deployment time 40%; 99.9% uptime; 25+ GCP resources via Terraform/Kubernetes.", "source": "brief"},
+      {"slot": "exp-metis", "text": "Shipped Triage, a live Telegram agent that cut wallet investigation time 80% (from ~45+ min/wallet).", "source": "brief"},
+      {"slot": "exp-outlier", "text": "Cut manual processing 60% for 10+ client processes with n8n agentic workflows; 98% data accuracy over 5,000+ records via SQL checks.", "source": "brief"},
+      {"slot": "exp-york-lead", "text": "Led 40+ staff; 15% satisfaction lift.", "source": "brief"},
+      {"slot": "exp-york-it", "text": "500+ devices deployed 30% faster via SCCM.", "source": "brief"},
+      {"slot": "project-bastion", "text": "Permission-aware AI agent with ACL-filtered retrieval and citations, a deterministic policy engine + audit log, and a 40-case eval harness in CI.", "source": "answer"},
+      {"slot": "project-triage", "text": "Read-only crypto-tax agent labeling findings RECONCILED / ASSUMPTION / UNRECONCILED, with x402 pay-per-report at $9.99.", "source": "answer"},
+      {"slot": "project-precogni", "text": "Real-time driver-fatigue detector shipped in 3 days with a 4-person team.", "source": "answer"},
+      {"slot": "project-savebetter", "text": "Adaptive savings engine on live data from 6+ Canadian banks.", "source": "answer"},
+      {"slot": "hackathon-record", "text": "Won 3 of 9 hackathons", "source": "brief"},
+      {"slot": "hackathons-list", "text": "Hack the North, Hack the Valley, Hack the 6ix, NASA HACKS", "source": "brief"},
+      {"slot": "education", "text": "York University BSc CS, Specialization in Computer Security and AI, Sep 2021-Apr 2027", "source": "brief"},
+      {"slot": "certs", "text": "Google Cloud Intro to LLMs, Intro to Terraform for GCP", "source": "brief"},
+      {"slot": "leadership", "text": "President Entrepreneurs Club, President Cook Club", "source": "brief"},
+      {"slot": "interests", "text": "Travelling (14 countries), hockey, golf, tennis, pickleball, swimming, anime, video games, reading.", "source": "brief"}
+    ],
+    "fabrication_guardrails": [
+      "No headshot images - use minimalist abstract textures instead.",
+      "No fake statistics or ratings.",
+      "No testimonials.",
+      "No named clients other than listed.",
+      "No rounding of numbers."
+    ],
+    "locale": {
+      "language": "en-CA",
+      "currency": "CAD"
+    }
+  },
+  "instructions_to_main_agent": "Implement a SINGLE hybrid design pulling features exactly as specified: 1) USE dir1 background color (#efe7da) and text color (#2b2119) globally. 2) IMPLEMENT 'Where I've Shipped' section strictly using dir1's design pattern (grid-cols-12, date on left in tabular font, details on right, border-t and border-b dividers). 3) IMPLEMENT Skills section using dir2's code/terminal representation (e.g., $ cat skills.yml), utilizing a monospace font, blinking cursor, and earthy green syntax colors on dark bg. 4) IMPLEMENT Hero with dir3's layout: left hero animation featuring smooth dynamic writing/typewriter effect for H1, and heavy curved edges (rounded-[24px]) for the right-side visual panel. ENSURE the overall feel remains a personal portfolio and not a product page by focusing on the builder/engineer narrative. Strict adherence to provided user facts—do not add headshots.",
+  "image_urls": {
+    "abstract_hero_texture": "https://images.pexels.com/photos/7916015/pexels-photo-7916015.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "abstract_project_texture": "https://images.unsplash.com/photo-1547148903-55829acc03a5?crop=entropy&cs=srgb&fm=jpg&q=85"
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": "Never apply universal transitions (e.g., `transition: all`). Create depth through layered design elements with z-index hierarchy. Ensure generous padding (p-8 to p-12) within containers. Use modern pill-shaped or rounded-[24px] components. Every interaction needs micro-animations - hover states, button scales, and text entrance animations on scroll. Add data-testid attributes to all interactive elements."
+}
