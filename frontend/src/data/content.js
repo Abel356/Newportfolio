@@ -14,6 +14,14 @@ export const PROFILE = {
 export const HERO_LINES = ["AI agents", "that run"];
 export const HERO_PHRASES = ["in production.", "past the demo.", "on real cloud.", "while I sleep."];
 
+// `shape` sets the desktop crop, `focus` which part of the photo stays in view.
+export const HERO_PHOTOS = [
+  { id: "aws-summit", src: "/media/abel-aws-summit.jpg", alt: "Abel at AWS Summit", shape: "lg:aspect-[4/5]", focus: "object-top" },
+  { id: "suit", src: "/media/abel-suit.jpg", alt: "Abel in a suit and red tie", shape: "lg:aspect-[5/4]", focus: "object-center" },
+  { id: "hack-the-6ix", src: "/media/abel-hack-the-6ix.jpg", alt: "Abel with teammates at Hack the 6ix", shape: "lg:aspect-[5/4]", focus: "object-center" },
+  { id: "garden", src: "/media/abel-garden.jpg", alt: "Abel in front of a flower garden", shape: "lg:aspect-[4/5]", focus: "object-[50%_40%]" },
+];
+
 export const EXPERIENCE = [
   {
     date: "Sep 2026 – Present",

@@ -101,12 +101,12 @@ export const Projects = () => {
         <div className="mt-12 space-y-6" data-testid="projects-grid">
           <Reveal>
             <article
-              className={`${CARD} grid lg:grid-cols-2 gap-8 lg:gap-12 p-7 md:p-10 items-start`}
+              className={`${CARD} grid lg:grid-cols-2 gap-8 lg:gap-12 p-7 md:p-10 items-center`}
               data-testid={`project-card-${slug(featured.name)}`}
             >
               <ProjectBody project={featured} big />
-              <div className="space-y-6 min-w-0">
-                <TriagePanel />
+              <TriagePanel />
+              <div className="lg:col-span-2">
                 <HoverClip
                   src={featured.clip}
                   poster={featured.poster}

@@ -40,6 +40,10 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - Triage card: real demo clip from the user's repo (public/media/triage-demo.mp4 + poster) via HoverClip.jsx — plays muted on hover/tap, kept alongside the run-report panel.
 - SaveBetter: repo + live demo links added. Bastion, Precogni, SaveBetter remain text-only (no visuals supplied yet).
 
+## Implemented (2026-11-19, revision 4)
+- Hero: four user photos (public/media/abel-*.jpg, HERO_PHOTOS in content.js) in a staggered two-column stack beside the headline (PhotoStack.jsx); warm sand frame that turns terracotta and image zooms on hover. One row of four on mobile.
+- Triage clip: now full width of the Triage card, zoomed (scale 1.16) so the purple recording border is cropped out, warm frame.
+
 ## Backlog / Next
 - P1: Screenshots/clips for Bastion, Precogni, SaveBetter when the user provides them
 - P1: Resume PDF download button
