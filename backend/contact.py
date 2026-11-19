@@ -167,7 +167,7 @@ def build_router(db) -> APIRouter:
             {"created_at": {"$gte": (now - timedelta(days=1)).isoformat()}}
         )
         if recent_from_ip >= MAX_PER_IP_PER_HOUR or recent_total >= MAX_PER_DAY:
-            raise HTTPException(status_code=429, detail="Too many messages. Please try again later or email directly.")
+            raise HTTPException(status_code=429, detail="Too many messages. Please try again later.")
 
         doc = {
             "id": str(uuid.uuid4()),

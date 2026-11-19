@@ -4,7 +4,6 @@ export const PROFILE = {
   location: "Toronto or remote",
   differentiator: "I build AI agents that actually run in production, backed by real cloud plumbing.",
   calendly: "https://calendly.com/sabuabel2003/30min",
-  email: "sabuabel2003@gmail.com",
   github: "https://github.com/Abel356",
   githubLabel: "github.com/Abel356",
   linkedin: "https://www.linkedin.com/in/abel-sabu-30651121a/",

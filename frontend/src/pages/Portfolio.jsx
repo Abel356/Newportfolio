@@ -205,13 +205,6 @@ const Contact = () => (
           </a>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <a
-              href={`mailto:${PROFILE.email}`}
-              data-testid="contact-email"
-              className="underline underline-offset-4 hover:text-[#a8471f]"
-            >
-              {PROFILE.email}
-            </a>
-            <a
               href={PROFILE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
@@ -248,14 +241,6 @@ const Contact = () => (
         <p className="mt-6 max-w-[42ch] text-lg leading-[1.6] text-[#d9c7ad]">
           Have a question or want to work together? I'd love to hear from you.
         </p>
-        <p className="mt-8 text-sm text-[#d9c7ad]">Or reach out directly:</p>
-        <a
-          href={`mailto:${PROFILE.email}`}
-          data-testid="get-in-touch-email"
-          className="font-dsp mt-2 inline-block break-all text-2xl md:text-3xl underline decoration-[#e2a07a] underline-offset-8 transition-colors hover:text-[#e2a07a]"
-        >
-          {PROFILE.email}
-        </a>
       </Reveal>
       <Reveal delay={0.1} className="lg:col-span-7">
         <ContactForm />
@@ -268,9 +253,6 @@ const Footer = () => (
   <footer className="bg-[#efe7da] text-[#2b2119] py-12">
     <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-between gap-6 text-sm">
       <span className="font-dsp text-xl">Abel Sabu</span>
-      <a href={`mailto:${PROFILE.email}`} className="hover:text-[#a8471f]">
-        {PROFILE.email}
-      </a>
       <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#a8471f]">
         {PROFILE.githubLabel}
       </a>

@@ -55,6 +55,9 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - Notes: meme captions removed; six AI-drawn math-monster pictures (3 "enemy" left, 3 matching "friend" right; `memes.before/after` in NOTES).
 - Tested: curl (validation 422, honeypot, real send 200), UI form with mocked response, lightbox open/close, 1920 + 390 screenshots. Testing agent not used.
 
+## Revision 7 (2026-11-19)
+- Owner email removed from every public spot (get-in-touch block, call card, footer, content.js). It now lives only in backend OWNER_EMAIL; the form is the only route to it.
+
 ## Backlog / Next
 - P1: Replace Bastion/Precogni visuals with real captures when available
 - P1: Resume PDF download button

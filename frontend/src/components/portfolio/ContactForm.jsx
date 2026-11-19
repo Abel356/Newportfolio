@@ -17,7 +17,7 @@ const errorText = (err) => {
   const detail = err.response?.data?.detail;
   if (typeof detail === "string") return detail;
   if (err.response?.status === 422) return "Please check your email address and try again.";
-  return "Something went wrong. Please email me directly instead.";
+  return "Something went wrong. Please try again in a moment, or book a call above.";
 };
 
 export const ContactForm = () => {
