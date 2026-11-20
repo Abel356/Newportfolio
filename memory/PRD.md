@@ -72,6 +72,9 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
   - Hero.jsx contains Typewriter, DotField, PhotoStack. Projects.jsx contains HoverClip, the view components and ProjectVisual. shared.jsx = Reveal, CountUp, SocialLinks.
   - Removed 45 unused shadcn ui components, hooks/use-toast.js, constants/testIds. Re-add a shadcn component if one is needed later.
 
+## Revision 10 (2026-11-20)
+- Flow view: step circles fill as the marker passes. Marker and fills share one framer-motion clock in FlowView (Projects.jsx) with measured circle positions; the old CSS flow-dot keyframes were removed.
+
 ## Backlog / Next
 - P1: Update CareTrace card (tag, copy, stack, real screenshot) once a prototype exists
 - P1: Replace Bastion/Precogni visuals with real captures when available

@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useTransform } from "framer-motion";
 import { ArrowUpRight, Check, FileText, Github, Play, ShieldX } from "lucide-react";
 import { PROJECTS, TRIAGE_ROWS, PRECOGNI_SIGNALS } from "@/data/content";
 import { Reveal } from "./shared";
@@ -52,47 +52,77 @@ const Bar = ({ w, className = "bg-[#2b2119]/15" }) => (
 );
 
 const FLOW_SECONDS = 4.5;
+const FLOW_TRAVEL = 0.85; // share of each loop the marker spends moving; it rests at the bottom for the remainder
+const CIRCLE = 15;
+const MARKER = 9;
 
-// Vertical pipeline: a dot travels down the line and each step's circle fills as the dot reaches it.
-// The circles empty again together when the dot loops back to the top.
+// Vertical pipeline. One clock (`progress`) drives the marker, and a circle fills the moment the
+// marker's centre crosses that circle's centre, so the two can never drift apart.
+// Circle positions are measured from the page, so this stays exact at any card width.
 const FlowView = ({ view }) => {
   const still = useReducedMotion();
-  const last = view.steps.length - 1;
+  const box = useRef(null);
+  const circles = useRef([]);
+  const centres = useRef([]);
+  const [passed, setPassed] = useState(0);
+  const progress = useMotionValue(0);
+
+  const markerY = () => {
+    const c = centres.current;
+    if (!c.length) return -CIRCLE;
+    const from = c[0] - CIRCLE;
+    const to = c[c.length - 1] + CIRCLE;
+    return from + (to - from) * Math.min(progress.get() / FLOW_TRAVEL, 1);
+  };
+  const top = useTransform(progress, () => markerY() - MARKER / 2);
+  const opacity = useTransform(progress, [0, 0.04, 0.94, 1], [0, 1, 1, 0]);
+
+  useEffect(() => {
+    const measure = () => {
+      const boxTop = box.current.getBoundingClientRect().top;
+      centres.current = circles.current.map((el) => el.getBoundingClientRect().top - boxTop + CIRCLE / 2);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(box.current);
+    if (still) return () => observer.disconnect();
+    const controls = animate(progress, 1, { duration: FLOW_SECONDS, ease: "linear", repeat: Infinity });
+    return () => {
+      controls.stop();
+      observer.disconnect();
+    };
+  }, [progress, still]);
+
+  useMotionValueEvent(progress, "change", () => {
+    const y = markerY();
+    setPassed(centres.current.filter((c) => y >= c).length);
+  });
+
   return (
-    <div className="relative flex h-full flex-col justify-between py-1 pl-7">
+    <div ref={box} className="relative flex h-full flex-col justify-between py-1 pl-7">
       <span className="absolute bottom-3 left-[7px] top-3 w-px bg-[#2b2119]/25" />
-      <span
-        className="flow-dot absolute left-[3px] h-[9px] w-[9px] rounded-full bg-[#a8471f]"
-        style={{ animationDuration: `${FLOW_SECONDS}s` }}
+      <motion.span
+        className="absolute left-[3px] z-10 rounded-full bg-[#a8471f]"
+        style={{ top, opacity, width: MARKER, height: MARKER }}
+        data-testid="flow-marker"
       />
-      {view.steps.map((s, i) => {
-        // The dot spends the first 85% of each loop travelling (see flow-travel in index.css), then rests.
-        const reached = 0.01 + 0.8 * (i / last);
-        return (
-          <div key={s.label} className="relative">
-            <motion.span
-              className="absolute -left-7 top-1 h-[15px] w-[15px] rounded-full border border-[#2b2119]/40 bg-[#efe7da]"
-              data-testid={`flow-step-${i}`}
-              animate={
-                still
-                  ? undefined
-                  : {
-                      backgroundColor: ["#efe7da", "#efe7da", "#a8471f", "#a8471f", "#efe7da"],
-                      borderColor: ["rgba(43,33,25,0.4)", "rgba(43,33,25,0.4)", "#a8471f", "#a8471f", "rgba(43,33,25,0.4)"],
-                    }
-              }
-              transition={{
-                duration: FLOW_SECONDS,
-                times: [0, reached, reached + 0.02, 0.985, 1],
-                ease: "linear",
-                repeat: Infinity,
-              }}
-            />
-            <p className="text-sm font-semibold leading-tight">{s.label}</p>
-            <p className="mt-0.5 text-xs leading-snug text-[#6b5848]">{s.note}</p>
-          </div>
-        );
-      })}
+      {view.steps.map((s, i) => (
+        <div key={s.label} className="relative">
+          <span
+            ref={(el) => {
+              circles.current[i] = el;
+            }}
+            data-testid={`flow-step-${i}`}
+            data-filled={i < passed}
+            className={`absolute -left-7 top-1 rounded-full border ${
+              i < passed ? "border-[#a8471f] bg-[#a8471f]" : "border-[#2b2119]/40 bg-[#efe7da]"
+            }`}
+            style={{ width: CIRCLE, height: CIRCLE }}
+          />
+          <p className="text-sm font-semibold leading-tight">{s.label}</p>
+          <p className="mt-0.5 text-xs leading-snug text-[#6b5848]">{s.note}</p>
+        </div>
+      ))}
     </div>
   );
 };
