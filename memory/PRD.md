@@ -75,6 +75,15 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 ## Revision 10 (2026-11-20)
 - Flow view: step circles fill as the marker passes. Marker and fills share one framer-motion clock in FlowView (Projects.jsx) with measured circle positions; the old CSS flow-dot keyframes were removed.
 
+## Implemented (2026-11-20, revision 11) — GitHub block
+- New section "What I've pushed lately" between Projects and Hackathons (components/portfolio/GitHubActivity.jsx): contribution calendar in the site palette (total counts up; phones show last 6 months) + dark "latest commit" card with 3 earlier commits. Frontend polls every 60s (react-query); a new commit slides in without reload.
+- Backend: backend/github_activity.py -> GET /api/github/activity. No token. Env: GITHUB_USERNAME.
+  - Calendar: parsed from public page github.com/users/<name>/contributions (not an official API; sanity check of >=300 days, otherwise stored copy is kept). Refreshed every 30 min.
+  - Commits: public events API (PushEvent head SHA) + commit endpoint for the message; events checked every 3 min with ETag, each commit SHA cached forever. Only first line, repo, short sha, url, date are returned (no author email).
+  - All cached in Mongo `github_cache`; failures serve the stored copy.
+- Tests: backend/tests/test_github_activity.py (3 passing, uses saved fixture of the real page). UI: simulated new commit verified in browser at 1920 and 390.
+- If exact/guaranteed calendar data is wanted later: switch to GitHub GraphQL with a user token (collect via secrets tool).
+
 ## Backlog / Next
 - P1: Update CareTrace card (tag, copy, stack, real screenshot) once a prototype exists
 - P1: Replace Bastion/Precogni visuals with real captures when available

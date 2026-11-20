@@ -3,6 +3,7 @@ import { Hero } from "@/components/portfolio/Hero";
 import { Notes } from "@/components/portfolio/Notes";
 import { ContactForm } from "@/components/portfolio/ContactForm";
 import { Projects } from "@/components/portfolio/Projects";
+import { GitHubActivity } from "@/components/portfolio/GitHubActivity";
 import { Reveal, CountUp, SocialLinks } from "@/components/portfolio/shared";
 import {
   PROFILE,
@@ -322,6 +323,7 @@ export default function Portfolio() {
       <Notes />
       <Experience />
       <Projects />
+      <GitHubActivity />
       <Hackathons />
       <Metrics />
       <Skills />

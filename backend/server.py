@@ -18,6 +18,7 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 from contact import build_router as build_contact_router  # noqa: E402  (needs .env loaded first)
+from github_activity import build_router as build_github_router  # noqa: E402
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -95,6 +96,7 @@ async def get_status_checks(limit: int = Query(20, ge=1, le=100)):
 
 # Include the router in the main app
 api_router.include_router(build_contact_router(db))
+api_router.include_router(build_github_router(db))
 app.include_router(api_router)
 
 app.add_middleware(
