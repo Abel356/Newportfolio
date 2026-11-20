@@ -58,7 +58,14 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 ## Revision 7 (2026-11-19)
 - Owner email removed from every public spot (get-in-touch block, call card, footer, content.js). It now lives only in backend OWNER_EMAIL; the form is the only route to it.
 
+## Implemented (2026-11-20, revision 8)
+- CareTrace project card added (repo https://github.com/Abel356/CareTrace). Repo is docs-only (PRD/TODO), so the card is tagged "In discovery", copy says "I'm designing", stack is prefixed "Planned:", and the panel is labelled "planned workflow". Do not describe it as built until code exists.
+- ProjectVisual: Bastion-only panel generalised to a data-driven `status-panel` (project.panel in content.js); status text wraps on narrow screens.
+- Small project cards now a 2x2 grid (was 3 across) to fit four cards.
+- SaveBetter screenshot recaptured (previous capture was caught mid fade-in and looked washed out).
+
 ## Backlog / Next
+- P1: Update CareTrace card (tag, copy, stack, real screenshot) once a prototype exists
 - P1: Replace Bastion/Precogni visuals with real captures when available
 - P1: Resume PDF download button
 - P2: Light SEO (sitemap, JSON-LD Person schema), OG image

@@ -1,21 +1,22 @@
-import { BASTION_RUN, PRECOGNI_SIGNALS } from "@/data/content";
+import { PRECOGNI_SIGNALS } from "@/data/content";
 
 const FRAME = "relative aspect-[16/10] overflow-hidden rounded-[16px] bg-[#2b2119]";
 const ZOOM = "h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110";
 
 const STATUS_COLORS = { ok: "#b9d08a", warn: "#e2c08a", stop: "#f0a98a" };
 
-// Run timeline modelled on Bastion's audit events: tool calls and policy decisions for one chat run.
-const BastionRun = () => (
-  <div className={`${FRAME} flex flex-col p-5 text-[#efe7da]`}>
-    <p className="lab font-mono text-[#e2a07a]">bastion · run timeline</p>
-    <p className="mt-1 text-xs text-[#d9c7ad]">{BASTION_RUN.persona}</p>
-    <ul className="mt-auto space-y-2 text-sm">
-      {BASTION_RUN.events.map((e) => (
-        <li key={e.label} className="flex justify-between gap-3 border-t border-[#efe7da]/15 pt-2">
-          <span className="truncate font-mono text-xs">{e.label}</span>
-          <span className="lab shrink-0" style={{ color: STATUS_COLORS[e.tone] }}>
-            {e.status}
+// Dark terminal-style panel: a title, a sub-line and status rows, all read from the project's `panel` data.
+// Height follows the rows on small screens (long statuses wrap); it matches the image cards from lg up.
+const StatusPanel = ({ panel }) => (
+  <div className="flex flex-col overflow-hidden rounded-[16px] bg-[#2b2119] p-5 text-[#efe7da] lg:aspect-[16/10]">
+    <p className="lab font-mono text-[#e2a07a]">{panel.title}</p>
+    <p className="mt-1 text-xs text-[#d9c7ad]">{panel.sub}</p>
+    <ul className="mt-8 space-y-2 text-sm lg:mt-auto">
+      {panel.rows.map((r) => (
+        <li key={r.label} className="flex justify-between gap-3 border-t border-[#efe7da]/15 pt-2">
+          <span className="shrink-0 font-mono text-xs">{r.label}</span>
+          <span className="lab min-w-0 whitespace-normal text-right" style={{ color: STATUS_COLORS[r.tone] }}>
+            {r.status}
           </span>
         </li>
       ))}
@@ -43,7 +44,7 @@ const Screenshot = ({ src, name }) => (
 );
 
 const VISUALS = {
-  "bastion-run": BastionRun,
+  "status-panel": StatusPanel,
   "precogni-cam": PrecogniCam,
   screenshot: Screenshot,
 };
@@ -55,7 +56,7 @@ export const ProjectVisual = ({ project }) => {
       className="mb-6 rounded-[20px] border-[5px] border-[#e3d6c3] transition-[border-color] duration-500 group-hover:border-[#a8471f]"
       data-testid={`project-${project.name.toLowerCase()}-visual`}
     >
-      <Visual src={project.image} name={project.name} />
+      <Visual src={project.image} name={project.name} panel={project.panel} />
     </div>
   ) : null;
 };

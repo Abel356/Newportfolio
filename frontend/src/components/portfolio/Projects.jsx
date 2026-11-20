@@ -117,7 +117,7 @@ export const Projects = () => {
               </div>
             </article>
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {rest.map((p, i) => (
               <Reveal key={p.name} delay={i * 0.08} className="h-full">
                 <article

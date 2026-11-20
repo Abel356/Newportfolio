@@ -78,7 +78,39 @@ export const PROJECTS = [
     stack: "FastAPI · React · TypeScript · Cohere · PostgreSQL · pgvector · Docker",
     repo: "https://github.com/Abel356/Bastion",
     demo: "",
-    visual: "bastion-run",
+    visual: "status-panel",
+    // Mirrors Bastion's demo walkthrough (docs/PRD.md) and tool names (app/governance/tools.py).
+    panel: {
+      title: "bastion · run timeline",
+      sub: "Maya Chen · Engineering",
+      rows: [
+        { label: "search_documents", status: "Allowed", tone: "ok" },
+        { label: "finance chunks", status: "Excluded", tone: "warn" },
+        { label: "injected passage", status: "Quarantined", tone: "warn" },
+        { label: "propose_email", status: "Blocked", tone: "stop" },
+      ],
+    },
+  },
+  {
+    name: "CareTrace",
+    tag: "In discovery",
+    detail:
+      "Inspection-readiness copilot I'm designing for Ontario long-term-care teams. It maps versioned regulations to policy passages and evidence checklists, shows the exact source for every claim, and leaves the compliance call to a human reviewer.",
+    stack: "Planned: Next.js · TypeScript · FastAPI · PostgreSQL · pgvector",
+    repo: "https://github.com/Abel356/CareTrace",
+    demo: "",
+    visual: "status-panel",
+    // The four document-coverage labels defined in CareTrace's PRD (core workflow, step 5).
+    panel: {
+      title: "caretrace · coverage review",
+      sub: "IPAC policy · planned workflow",
+      rows: [
+        { label: "obligation 01", status: "Addressed in document", tone: "ok" },
+        { label: "obligation 02", status: "Partially addressed", tone: "warn" },
+        { label: "obligation 03", status: "No supporting passage", tone: "stop" },
+        { label: "obligation 04", status: "Needs review", tone: "warn" },
+      ],
+    },
   },
   {
     name: "Precogni",
@@ -103,17 +135,6 @@ export const PROJECTS = [
     image: "/media/savebetter.jpg",
   },
 ];
-
-// Mirrors Bastion's demo walkthrough (docs/PRD.md) and tool names (app/governance/tools.py).
-export const BASTION_RUN = {
-  persona: "Maya Chen · Engineering",
-  events: [
-    { label: "search_documents", status: "Allowed", tone: "ok" },
-    { label: "finance chunks", status: "Excluded", tone: "warn" },
-    { label: "injected passage", status: "Quarantined", tone: "warn" },
-    { label: "propose_email", status: "Blocked", tone: "stop" },
-  ],
-};
 
 export const PRECOGNI_SIGNALS = ["eye closure", "yawning", "head tilt"];
 
