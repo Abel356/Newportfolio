@@ -84,6 +84,9 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - Tests: backend/tests/test_github_activity.py (3 passing, uses saved fixture of the real page). UI: simulated new commit verified in browser at 1920 and 390.
 - If exact/guaranteed calendar data is wanted later: switch to GitHub GraphQL with a user token (collect via secrets tool).
 
+## Revision 12 (2026-11-20)
+- Removed the "@Abel356 on GitHub" link from the GitHub section header (user: data leak); /api/github/activity no longer returns username or profile_url. Verified by testing agent (test_reports/iteration_1.json, 100%). Commit rows and the GitHub icon buttons still link to github.com/Abel356 — ask before adding the handle as visible text anywhere.
+
 ## Backlog / Next
 - P1: Update CareTrace card (tag, copy, stack, real screenshot) once a prototype exists
 - P1: Replace Bastion/Precogni visuals with real captures when available
