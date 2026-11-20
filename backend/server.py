@@ -19,6 +19,8 @@ load_dotenv(ROOT_DIR / '.env')
 
 from contact import build_router as build_contact_router  # noqa: E402  (needs .env loaded first)
 from github_activity import build_router as build_github_router  # noqa: E402
+from auth import build_auth, seed_admin  # noqa: E402
+import analytics  # noqa: E402
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -97,6 +99,9 @@ async def get_status_checks(limit: int = Query(20, ge=1, le=100)):
 # Include the router in the main app
 api_router.include_router(build_contact_router(db))
 api_router.include_router(build_github_router(db))
+auth_router, require_admin = build_auth(db)
+api_router.include_router(auth_router)
+api_router.include_router(analytics.build_router(db, require_admin))
 app.include_router(api_router)
 
 app.add_middleware(
@@ -117,6 +122,8 @@ logger = logging.getLogger(__name__)
 @app.on_event("startup")
 async def start_index_build():
     app.state.index_task = asyncio.create_task(ensure_indexes())  # background: a big index build must not block boot
+    await seed_admin(db)
+    await analytics.ensure_indexes(db)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

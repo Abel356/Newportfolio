@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { PROFILE } from "@/data/content";
 
 const LINKS = [
@@ -50,6 +51,9 @@ export const Nav = () => {
               {l.label}
             </a>
           ))}
+          <Link to="/admin" data-testid="nav-admin" className="text-[#6b5848] transition-colors hover:text-[#a8471f]">
+            Admin
+          </Link>
         </div>
         <a
           href={PROFILE.calendly}

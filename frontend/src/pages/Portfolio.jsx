@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { startTracking } from "@/lib/track";
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
 import { Notes } from "@/components/portfolio/Notes";
@@ -234,7 +237,16 @@ const Footer = () => (
   <footer className="bg-[#efe7da] text-[#2b2119] py-12">
     <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-6 text-sm">
       <span className="font-dsp text-xl">Abel Sabu</span>
-      <SocialLinks place="footer" />
+      <div className="flex items-center gap-5">
+        <Link
+          to="/admin"
+          data-testid="footer-admin"
+          className="text-xs text-[#6b5848] transition-colors hover:text-[#a8471f] md:hidden"
+        >
+          Admin
+        </Link>
+        <SocialLinks place="footer" />
+      </div>
     </div>
   </footer>
 );
@@ -316,6 +328,8 @@ const Skills = () => (
 );
 
 export default function Portfolio() {
+  useEffect(() => startTracking(), []);
+
   return (
     <main className="bg-[#efe7da]" data-testid="portfolio-page">
       <Nav />
