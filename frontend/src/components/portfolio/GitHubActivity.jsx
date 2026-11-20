@@ -152,25 +152,14 @@ export const GitHubActivity = () => {
   return (
     <section id="github" className="bg-[#e3d6c3] py-24 text-[#2b2119] md:py-32" data-testid="github-section">
       <div className="mx-auto max-w-7xl px-6">
-        <Reveal className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="lab text-[#a8471f]">GitHub</p>
-            <h2
-              className="font-dsp mt-4"
-              style={{ fontSize: "clamp(36px,5vw,72px)", lineHeight: 1, letterSpacing: "-.02em" }}
-            >
-              What I've pushed lately
-            </h2>
-          </div>
-          <a
-            href={data.profile_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="github-profile-link"
-            className="text-sm text-[#a8471f] underline underline-offset-4 transition-colors hover:text-[#2b2119]"
+        <Reveal>
+          <p className="lab text-[#a8471f]">GitHub</p>
+          <h2
+            className="font-dsp mt-4"
+            style={{ fontSize: "clamp(36px,5vw,72px)", lineHeight: 1, letterSpacing: "-.02em" }}
           >
-            @{data.username} on GitHub
-          </a>
+            What I've pushed lately
+          </h2>
         </Reveal>
         <div className="mt-12 grid items-center gap-12 lg:grid-cols-12">
           {data.calendar && (

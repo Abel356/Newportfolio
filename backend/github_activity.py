@@ -182,11 +182,6 @@ def build_router(db) -> APIRouter:
         )
         if calendar is None and commits is None:
             raise HTTPException(status_code=503, detail="GitHub activity is unavailable right now")
-        return {
-            "username": GITHUB_USERNAME,
-            "profile_url": f"https://github.com/{GITHUB_USERNAME}",
-            "calendar": calendar,
-            "commits": commits or [],
-        }
+        return {"calendar": calendar, "commits": commits or []}
 
     return router
