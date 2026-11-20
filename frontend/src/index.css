@@ -100,12 +100,15 @@ body {
 /* ---- Flow diagram dot ---- */
 @keyframes flow-travel {
     0% { top: 8px; opacity: 0; }
-    8%, 92% { opacity: 1; }
+    8% { opacity: 1; }
+    85% { top: calc(100% - 20px); opacity: 1; }
+    92% { top: calc(100% - 20px); opacity: 1; }
     100% { top: calc(100% - 20px); opacity: 0; }
 }
 .flow-dot {
     top: 8px;
-    animation: flow-travel 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    /* Linear so the step circles in FlowView can fill exactly as the dot passes them. */
+    animation: flow-travel 4.5s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

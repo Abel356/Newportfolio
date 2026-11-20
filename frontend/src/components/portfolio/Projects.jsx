@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Check, FileText, Github, Play, ShieldX } from "lucide-react";
 import { PROJECTS, TRIAGE_ROWS, PRECOGNI_SIGNALS } from "@/data/content";
 import { Reveal } from "./shared";
@@ -51,20 +51,51 @@ const Bar = ({ w, className = "bg-[#2b2119]/15" }) => (
   <span className={`block h-2 rounded-full ${className}`} style={{ width: w }} />
 );
 
-// Vertical pipeline: a dot travels down the line past each step.
-const FlowView = ({ view }) => (
-  <div className="relative flex h-full flex-col justify-between py-1 pl-7">
-    <span className="absolute bottom-3 left-[7px] top-3 w-px bg-[#2b2119]/25" />
-    <span className="flow-dot absolute left-[3px] h-[9px] w-[9px] rounded-full bg-[#a8471f]" />
-    {view.steps.map((s) => (
-      <div key={s.label} className="relative">
-        <span className="absolute -left-7 top-1 h-[15px] w-[15px] rounded-full border border-[#2b2119]/40 bg-[#efe7da]" />
-        <p className="text-sm font-semibold leading-tight">{s.label}</p>
-        <p className="mt-0.5 text-xs leading-snug text-[#6b5848]">{s.note}</p>
-      </div>
-    ))}
-  </div>
-);
+const FLOW_SECONDS = 4.5;
+
+// Vertical pipeline: a dot travels down the line and each step's circle fills as the dot reaches it.
+// The circles empty again together when the dot loops back to the top.
+const FlowView = ({ view }) => {
+  const still = useReducedMotion();
+  const last = view.steps.length - 1;
+  return (
+    <div className="relative flex h-full flex-col justify-between py-1 pl-7">
+      <span className="absolute bottom-3 left-[7px] top-3 w-px bg-[#2b2119]/25" />
+      <span
+        className="flow-dot absolute left-[3px] h-[9px] w-[9px] rounded-full bg-[#a8471f]"
+        style={{ animationDuration: `${FLOW_SECONDS}s` }}
+      />
+      {view.steps.map((s, i) => {
+        // The dot spends the first 85% of each loop travelling (see flow-travel in index.css), then rests.
+        const reached = 0.01 + 0.8 * (i / last);
+        return (
+          <div key={s.label} className="relative">
+            <motion.span
+              className="absolute -left-7 top-1 h-[15px] w-[15px] rounded-full border border-[#2b2119]/40 bg-[#efe7da]"
+              data-testid={`flow-step-${i}`}
+              animate={
+                still
+                  ? undefined
+                  : {
+                      backgroundColor: ["#efe7da", "#efe7da", "#a8471f", "#a8471f", "#efe7da"],
+                      borderColor: ["rgba(43,33,25,0.4)", "rgba(43,33,25,0.4)", "#a8471f", "#a8471f", "rgba(43,33,25,0.4)"],
+                    }
+              }
+              transition={{
+                duration: FLOW_SECONDS,
+                times: [0, reached, reached + 0.02, 0.985, 1],
+                ease: "linear",
+                repeat: Infinity,
+              }}
+            />
+            <p className="text-sm font-semibold leading-tight">{s.label}</p>
+            <p className="mt-0.5 text-xs leading-snug text-[#6b5848]">{s.note}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 // Illustrative chat: a question, a cited answer, and one action the policy engine refuses.
 const ChatView = ({ view }) => (
