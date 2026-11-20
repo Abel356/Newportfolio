@@ -5,9 +5,7 @@ export const PROFILE = {
   differentiator: "I build AI agents that actually run in production, backed by real cloud plumbing.",
   calendly: "https://calendly.com/sabuabel2003/30min",
   github: "https://github.com/Abel356",
-  githubLabel: "github.com/Abel356",
   linkedin: "https://www.linkedin.com/in/abel-sabu-30651121a/",
-  linkedinLabel: "linkedin.com/in/abel-sabu-30651121a",
 };
 
 export const HERO_LINES = ["AI agents", "that run"];
@@ -78,18 +76,29 @@ export const PROJECTS = [
     stack: "FastAPI · React · TypeScript · Cohere · PostgreSQL · pgvector · Docker",
     repo: "https://github.com/Abel356/Bastion",
     demo: "",
-    visual: "status-panel",
-    // Mirrors Bastion's demo walkthrough (docs/PRD.md) and tool names (app/governance/tools.py).
-    panel: {
-      title: "bastion · run timeline",
-      sub: "Maya Chen · Engineering",
-      rows: [
-        { label: "search_documents", status: "Allowed", tone: "ok" },
-        { label: "finance chunks", status: "Excluded", tone: "warn" },
-        { label: "injected passage", status: "Quarantined", tone: "warn" },
-        { label: "propose_email", status: "Blocked", tone: "stop" },
-      ],
-    },
+    visual: "views",
+    // Based on Bastion's backend: personas, ACL-filtered retrieval, quarantine, policy engine, audit log.
+    views: [
+      {
+        type: "flow",
+        tab: "Flow",
+        steps: [
+          { label: "Question", note: "asked as a signed-in persona" },
+          { label: "Permission filter", note: "only documents this person may read" },
+          { label: "Retrieval", note: "suspicious passages are quarantined" },
+          { label: "Policy check", note: "every action is allowed or denied" },
+          { label: "Answer", note: "with citations, written to the audit log" },
+        ],
+      },
+      {
+        type: "chat",
+        tab: "Chat",
+        persona: "Maya Chen · Engineering",
+        question: "What's our incident-response process?",
+        sources: [1, 2],
+        blocked: { tool: "propose_email", reason: "external recipients are blocked" },
+      },
+    ],
   },
   {
     name: "CareTrace",
@@ -99,18 +108,29 @@ export const PROJECTS = [
     stack: "Planned: Next.js · TypeScript · FastAPI · PostgreSQL · pgvector",
     repo: "https://github.com/Abel356/CareTrace",
     demo: "",
-    visual: "status-panel",
-    // The four document-coverage labels defined in CareTrace's PRD (core workflow, step 5).
-    panel: {
-      title: "caretrace · coverage review",
-      sub: "IPAC policy · planned workflow",
-      rows: [
-        { label: "obligation 01", status: "Addressed in document", tone: "ok" },
-        { label: "obligation 02", status: "Partially addressed", tone: "warn" },
-        { label: "obligation 03", status: "No supporting passage", tone: "stop" },
-        { label: "obligation 04", status: "Needs review", tone: "warn" },
-      ],
-    },
+    visual: "views",
+    // Planned workflow from CareTrace's PRD; nothing here is a capture of a running app.
+    views: [
+      {
+        type: "flow",
+        tab: "Flow",
+        steps: [
+          { label: "Regulation", note: "versioned, direct-source text" },
+          { label: "Obligation map", note: "one requirement at a time" },
+          { label: "Policy coverage", note: "matched to the exact passage" },
+          { label: "Evidence checklist", note: "what an inspector may ask for" },
+          { label: "Human review", note: "a person makes the compliance call" },
+        ],
+      },
+      { type: "compare", tab: "Compare", label: "Partially addressed", note: "exact source passage on both sides" },
+      {
+        type: "checklist",
+        tab: "Checklist",
+        title: "IPAC · evidence to gather",
+        done: 3,
+        items: ["Current IPAC policy", "Staff training records", "Audit results", "Outbreak log", "Owner and follow-up date"],
+      },
+    ],
   },
   {
     name: "Precogni",

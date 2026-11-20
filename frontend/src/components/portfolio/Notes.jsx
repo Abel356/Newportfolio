@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NOTES } from "@/data/content";
-import { Reveal } from "./Reveal";
+import { Reveal } from "./shared";
 
 const Para = ({ children }) => (
   <p className="mt-5 text-lg leading-[1.75] text-[#4a3a2d]">{children}</p>

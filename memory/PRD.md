@@ -64,6 +64,14 @@ Fonts: Playfair Display (display), Manrope (body), JetBrains Mono (mono).
 - Small project cards now a 2x2 grid (was 3 across) to fit four cards.
 - SaveBetter screenshot recaptured (previous capture was caught mid fade-in and looked washed out).
 
+## Implemented (2026-11-20, revision 9)
+- Bastion and CareTrace visuals: light switchable panel (tabs). Bastion = Flow / Chat; CareTrace = Flow / Compare / Checklist (`views` in content.js). User is still choosing which to keep; remove the tabs once they pick one each.
+- LinkedIn and GitHub are icon buttons (contact card + footer); typed-out URLs removed.
+- Source tidy-up: frontend/src went from 70 files to 13, same rendered page (DOM, test ids and text compared before/after; production build passes).
+  - src layout now: index.js, index.css, App.js, data/content.js, lib/utils.js, components/ui/dialog.jsx, pages/Portfolio.jsx (also holds Experience, Skills, Metrics, Hackathons, Contact, Footer), components/portfolio/{Hero,Projects,Notes,ContactForm,Nav,shared}.jsx
+  - Hero.jsx contains Typewriter, DotField, PhotoStack. Projects.jsx contains HoverClip, the view components and ProjectVisual. shared.jsx = Reveal, CountUp, SocialLinks.
+  - Removed 45 unused shadcn ui components, hooks/use-toast.js, constants/testIds. Re-add a shadcn component if one is needed later.
+
 ## Backlog / Next
 - P1: Update CareTrace card (tag, copy, stack, real screenshot) once a prototype exists
 - P1: Replace Bastion/Precogni visuals with real captures when available

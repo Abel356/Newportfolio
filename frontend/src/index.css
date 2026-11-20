@@ -97,6 +97,17 @@ body {
     color: #efe7da;
 }
 
+/* ---- Flow diagram dot ---- */
+@keyframes flow-travel {
+    0% { top: 8px; opacity: 0; }
+    8%, 92% { opacity: 1; }
+    100% { top: calc(100% - 20px); opacity: 0; }
+}
+.flow-dot {
+    top: 8px;
+    animation: flow-travel 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
     * {
         animation: none !important;
@@ -104,4 +115,8 @@ body {
     html {
         scroll-behavior: auto;
     }
+}
+
+.App {
+    min-height: 100vh;
 }
