@@ -1,0 +1,27 @@
+{
+  "summary": "End-to-end test of the private visit-tracker feature. 19/19 backend pytest cases pass (auth protection, cross-site refusal, tracking visit/beat/click, bot + owner filtering, invalid sid 422, beat >30s dropped, privacy = no IP / raw UA / password_hash). Frontend: public page has no login prompt, nav-admin on desktop and footer-admin on mobile, zero /api/track requests under default webdriver=true, exactly one visit event on load with webdriver spoofed false, beat with projects dwell fires after scrolling to #projects + ~16s, Book-a-call click tracked, admin login error shows 'Wrong email or password', dashboard renders all required tiles, 30 daily bars, page heatmap with reach values non-increasing top->bottom (100, 50, 50, 50, 50, 0...), when-heatmap, clicks/sources/countries/devices lists, recent-visits table, reload keeps user signed in, sign-out returns to login form, no horizontal overflow at 390px or 1920px, tracker sets no cookies and writes nothing to localStorage/sessionStorage (only PostHog platform script does, as noted in the brief).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_analytics_feature.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "analytics.py source_for(): operator-precedence bug risk — `if not probe or host == own_host... and not tag:` relies on Python precedence (and > ==). Logic currently works but is fragile; add parens: `if not probe or (host == own_host.lower().removeprefix('www.') and not tag):`.",
+    "track.js: beat() is called every 15s even when dwell is empty and page is visible, resulting in extra empty-dwell POSTs. Minor; backend handles it.",
+    "Admin.jsx uses localStorage.setItem(OWNER_FLAG, '1') on login — that flag is readable by any script on the same origin (including PostHog). Not a secret but worth noting.",
+    "Public page loads a platform PostHog script that sets cookies + localStorage + sessionStorage. This is NOT part of the tracker feature but conflicts with the 'no cookies' spirit; consider removing from production HTML if the owner wants fully cookie-less public pages."
+  ],
+  "updated_files": ["/app/backend/tests/test_analytics_feature.py"],
+  "success_rate": {"backend": "100% (19/19)", "frontend": "100% (all checks passed)"},
+  "test_credentials": "Read from ADMIN_EMAIL / ADMIN_PASSWORD env vars; never written to any file.",
+  "seed_data_creation": "All sids created in the backend pytest run were cleaned up by teardown_module (visits + visit_clicks with those sids deleted). One sid created by the Playwright run with webdriver spoofed false — sid=62f8b5ba-1de9-4ad3-9667-06eecc5eaafc, source=qa-test, has a Book-a-call click and a projects dwell beat; main agent may remove it from db.visits and db.visit_clicks if desired. login_attempts entries for lockout-test@example.com were also cleaned up.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend test file /app/backend/tests/test_analytics_feature.py is a regression suite covering auth protection, tracking, filters, and privacy. Run with `pytest backend/tests/test_analytics_feature.py -v`. Requires ADMIN_EMAIL + ADMIN_PASSWORD in env and the external REACT_APP_BACKEND_URL (test reads it from /app/frontend/.env if env var missing). For the UI tracker, you MUST override navigator.webdriver via context.add_init_script, otherwise startTracking returns a no-op and no /api/track requests are emitted."
+}

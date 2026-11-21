@@ -80,7 +80,7 @@ def source_for(referrer: str, tag: str, own_host: str) -> str:
     """`tag` is a ?ref= or ?utm_source= value on the link the visitor used; it wins over the referrer."""
     host = (urlparse(referrer).hostname or "").lower().removeprefix("www.") if referrer else ""
     probe = (tag or host).lower()
-    if not probe or host == own_host.lower().removeprefix("www.") and not tag:
+    if not probe or (host == own_host.lower().removeprefix("www.") and not tag):
         return "Direct link"
     for needle, label in _SOURCES.items():
         if needle in probe:
