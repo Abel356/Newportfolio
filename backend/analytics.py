@@ -183,6 +183,7 @@ def summarise(visits: list[dict], clicks: list[dict], now: datetime, tz) -> dict
 
 async def ensure_indexes(db) -> None:
     await db.visits.create_index([("ts", -1)])
+    await db.visits.create_index([("ts", -1), ("_id", -1)])
     await db.visits.create_index([("visitor", 1), ("ts", -1)])
     await db.visit_clicks.create_index([("ts", -1)])
     await db.visit_clicks.create_index("sid")
@@ -252,5 +253,44 @@ def build_router(db, require_admin) -> APIRouter:
         visits = await db.visits.find({"ts": {"$gte": since}}).to_list(50000)
         clicks = await db.visit_clicks.find({"ts": {"$gte": since}}, {"_id": 0}).to_list(50000)
         return summarise(visits, clicks, now, zone)
+
+    @router.get("/admin/visits")
+    async def visit_history(
+        limit: int = Query(25, ge=1, le=100),
+        cursor: str | None = Query(None, max_length=128),
+        _admin: dict = Depends(require_admin),
+    ):
+        """All retained visits, newest first; a stable cursor avoids shifts from new arrivals."""
+        from fastapi import HTTPException
+
+        query = {}
+        if cursor:
+            try:
+                timestamp, visit_id = cursor.rsplit("|", 1)
+                before = datetime.fromisoformat(timestamp)
+                if before.tzinfo is None or not re.fullmatch(_SID, visit_id):
+                    raise ValueError
+            except ValueError:
+                raise HTTPException(status_code=422, detail="Invalid history cursor") from None
+            query = {"$or": [{"ts": {"$lt": before}}, {"ts": before, "_id": {"$lt": visit_id}}]}
+
+        projection = {"ts": 1, "source": 1, "country": 1, "device": 1, "dwell": 1, "reached": 1}
+        visits = await db.visits.find(query, projection).sort([("ts", -1), ("_id", -1)]).limit(limit + 1).to_list(limit + 1)
+        has_more = len(visits) > limit
+        page = visits[:limit]
+        rows = []
+        for visit in page:
+            depth = max((i for i, (sid, _) in enumerate(SECTIONS) if sid in visit.get("reached", [])), default=0)
+            rows.append({
+                "id": visit["_id"],
+                "at": visit["ts"].replace(tzinfo=timezone.utc).isoformat(),
+                "source": visit.get("source", "Unknown"),
+                "country": visit.get("country", "Unknown"),
+                "device": visit.get("device", "Unknown"),
+                "seconds": round(sum(visit.get("dwell", {}).values())),
+                "furthest": SECTIONS[depth][1],
+            })
+        next_cursor = f"{rows[-1]['at']}|{rows[-1]['id']}" if has_more else None
+        return {"visits": rows, "next_cursor": next_cursor, "total": await db.visits.count_documents({})}
 
     return router
